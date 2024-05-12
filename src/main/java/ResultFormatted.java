@@ -1,21 +1,15 @@
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ResultFormatted {
-    public static HashMap<String, String> hashMap= new HashMap<>();
-
-    static {
-        hashMap.put("1", "рубль");
-        hashMap.put("234", "рубля");
-        hashMap.put("56789", "рублей");
-    }
 
     public static void outFormatted(double num){
-        String val= String.valueOf(num).split("\\.")[0];
-        for (String s: hashMap.keySet()){
-            if (s.contains(String.valueOf(val.charAt(val.length()-1)))){
-                System.out.println(String.format("Каждый человек должен заплатить %.2f %s", num, hashMap.get(s)));
-                break;
-            }
-        }
+        int val= (int)num;
+        String s="";
+        if (val>=5 && val%100<=20) s="рублей";
+        else if (val%10==1) s="рубль";
+        else if (new ArrayList<Integer>(Arrays.asList(2,3,4)).contains(val%10)) s="рубля";
+        else s="рублей";
+        System.out.println(String.format("Каждый человек должен заплатить %.2f %s", num, s));
     }
 }
